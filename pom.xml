@@ -30,6 +30,32 @@
                 <extensions>true</extensions>
                 <configuration/>
             </plugin>
+            <plugin>
+    <groupId>org.mule.tools.maven</groupId>
+    <artifactId>mule-maven-plugin</artifactId>
+    <version>4.3.0</version>
+    <extensions>true</extensions>
+
+    <configuration>
+        <cloudHub2Deployment>
+            <uri>https://anypoint.mulesoft.com</uri>
+            <provider>MC</provider>
+
+            <environment>Sandbox</environment>
+
+            <applicationName>jenkins-cicd-demo</applicationName>
+
+            <target>
+                <provider>MC</provider>
+                <name>Shared Space Asia Pacific (Mumbai)</name>
+            </target>
+
+            <replicas>1</replicas>
+            <vCores>0.1</vCores>
+
+        </cloudHub2Deployment>
+    </configuration>
+</plugin>
         </plugins>
     </build>
     <repositories>
@@ -65,4 +91,11 @@
             <classifier>mule-plugin</classifier>
         </dependency>
     </dependencies>
+    <distributionManagement>
+    <repository>
+        <id>exchange-repository</id>
+        <name>Exchange Repository</name>
+        <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/dbccbbdc-7dd7-4013-8bc6-f8018638d132/maven</url>
+    </repository>
+</distributionManagement>
 </project>
