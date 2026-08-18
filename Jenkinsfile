@@ -38,7 +38,8 @@ pipeline {
                 ]) {
 
                     bat '''
-                   mvn deploy ^
+                  mvn clean deploy ^
+-DskipExchangeDeploy=true ^
 -DclientId=%CLIENT_ID% ^
 -DclientSecret=%CLIENT_SECRET%
                     '''
