@@ -31,7 +31,7 @@ pipeline {
             steps {
                 withCredentials([
                     usernamePassword(
-                        credentialsId: 'anypoint-creds',
+                        credentialsId: 'anypoint-developer-edition-creds',
                         usernameVariable: 'CLIENT_ID',
                         passwordVariable: 'CLIENT_SECRET'
                     )
