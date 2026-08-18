@@ -27,5 +27,25 @@ pipeline {
             }
         }
 
+        stage('Deploy to CloudHub 2.0') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'anypoint-creds',
+                        usernameVariable: 'CLIENT_ID',
+                        passwordVariable: 'CLIENT_SECRET'
+                    )
+                ]) {
+
+                    bat '''
+                   mvn deploy ^
+-DclientId=%CLIENT_ID% ^
+-DclientSecret=%CLIENT_SECRET%
+                    '''
+
+                }
+            }
+        }
+
     }
 }
