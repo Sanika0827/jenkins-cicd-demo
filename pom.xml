@@ -24,23 +24,15 @@
                 <version>3.1.0</version>
             </plugin>
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
-                <artifactId>mule-maven-plugin</artifactId>
-                <version>${mule.maven.plugin.version}</version>
-                <extensions>true</extensions>
-                <configuration/>
-            </plugin>
-            <plugin>
     <groupId>org.mule.tools.maven</groupId>
     <artifactId>mule-maven-plugin</artifactId>
-    <version>4.3.0</version>
+    <version>${mule.maven.plugin.version}</version>
     <extensions>true</extensions>
 
     <configuration>
         <cloudHub2Deployment>
             <uri>https://anypoint.mulesoft.com</uri>
             <provider>MC</provider>
-
             <environment>Sandbox</environment>
 
             <applicationName>jenkins-cicd-demo</applicationName>
@@ -52,7 +44,6 @@
 
             <replicas>1</replicas>
             <vCores>0.1</vCores>
-
         </cloudHub2Deployment>
     </configuration>
 </plugin>
@@ -91,11 +82,4 @@
             <classifier>mule-plugin</classifier>
         </dependency>
     </dependencies>
-    <distributionManagement>
-    <repository>
-        <id>exchange-repository</id>
-        <name>Exchange Repository</name>
-        <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/dbccbbdc-7dd7-4013-8bc6-f8018638d132/maven</url>
-    </repository>
-</distributionManagement>
 </project>
