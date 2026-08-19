@@ -38,8 +38,7 @@ pipeline {
         ]) {
 
             bat '''
-mvn mule:deploy ^
--Pcloudhub2 ^
+mvn clean deploy ^
 -DclientId=%CLIENT_ID% ^
 -DclientSecret=%CLIENT_SECRET%
 '''
