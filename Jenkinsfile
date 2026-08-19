@@ -38,12 +38,11 @@ pipeline {
                     )
                 ]) {
 
-                    bat '''
-                    mvn deploy ^
-                    -DskipExchangeDeploy=true ^
-                    -DclientId=%CLIENT_ID% ^
-                    -DclientSecret=%CLIENT_SECRET%
-                    '''
+                  bat '''
+mvn org.mule.tools.maven:mule-maven-plugin:deploy ^
+-DclientId=%CLIENT_ID% ^
+-DclientSecret=%CLIENT_SECRET%
+'''
 
                 }
             }
