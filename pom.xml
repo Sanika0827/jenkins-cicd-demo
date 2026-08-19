@@ -1,137 +1,164 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>com.mycompany</groupId>
     <artifactId>jenkind-cicd-demo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>mule-application</packaging>
-    
+
     <name>jenkind-cicd-demo</name>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <app.runtime>4.11.6</app.runtime>
         <mule.maven.plugin.version>4.10.0</mule.maven.plugin.version>
     </properties>
-    
+
+
     <build>
         <plugins>
-        <plugin>
-    <groupId>org.mule.tools.maven</groupId>
-    <artifactId>exchange-mule-maven-plugin</artifactId>
-    <version>0.1.7</version>
-    <executions>
-        <execution>
-            <id>default-exchange-pre-deploy</id>
-            <phase>none</phase>
-        </execution>
-        <execution>
-            <id>default-exchange-deploy</id>
-            <phase>none</phase>
-        </execution>
-    </executions>
-</plugin>
+
+            <!-- Disable Exchange Deployment -->
+            <plugin>
+                <groupId>org.mule.tools.maven</groupId>
+                <artifactId>exchange-mule-maven-plugin</artifactId>
+                <version>0.1.7</version>
+
+                <executions>
+                    <execution>
+                        <id>default-exchange-pre-deploy</id>
+                        <phase>none</phase>
+                    </execution>
+
+                    <execution>
+                        <id>default-exchange-deploy</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+
+            <!-- Clean Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.1.0</version>
             </plugin>
+
+
+            <!-- Mule Maven Plugin -->
             <plugin>
-    <groupId>org.mule.tools.maven</groupId>
-    <artifactId>mule-maven-plugin</artifactId>
-    <version>${mule.maven.plugin.version}</version>
-    <extensions>true</extensions>
-    <inherited>true</inherited>
+                <groupId>org.mule.tools.maven</groupId>
+                <artifactId>mule-maven-plugin</artifactId>
+                <version>${mule.maven.plugin.version}</version>
+                <extensions>true</extensions>
 
-    <configuration>
-        <cloudHub2Deployment>
-            <uri>https://anypoint.mulesoft.com</uri>
-            <provider>MC</provider>
-            <environment>Sandbox</environment>
+                <configuration>
 
-            <applicationName>jenkins-cicd-demo</applicationName>
+                    <cloudHub2Deployment>
 
-            <target>
-                <provider>MC</provider>
-                <name>Shared Space Asia Pacific (Mumbai)</name>
-            </target>
+                        <uri>https://anypoint.mulesoft.com</uri>
 
-            <replicas>1</replicas>
-            <vCores>0.1</vCores>
-        </cloudHub2Deployment>
-    </configuration>
-</plugin>
+                        <provider>MC</provider>
+
+                        <environment>Sandbox</environment>
+
+                        <applicationName>jenkins-cicd-demo</applicationName>
+
+
+                        <target>
+                            <provider>MC</provider>
+                            <name>Shared Space Asia Pacific (Mumbai)</name>
+                        </target>
+
+
+                        <deploymentSettings>
+                            <replicas>1</replicas>
+                            <vCores>0.1</vCores>
+                        </deploymentSettings>
+
+
+                    </cloudHub2Deployment>
+
+                </configuration>
+
+            </plugin>
+
+
+            <!-- Skip Maven Repository Deployment -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.4</version>
+
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+
+            </plugin>
+
+
         </plugins>
+
     </build>
+
+
+
     <repositories>
+
         <repository>
             <id>anypoint-exchange-v3</id>
             <name>Anypoint Exchange</name>
             <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
             <layout>default</layout>
         </repository>
+
+
         <repository>
             <id>mulesoft-releases</id>
             <name>MuleSoft Releases Repository</name>
             <url>https://repository.mulesoft.org/releases/</url>
             <layout>default</layout>
         </repository>
+
     </repositories>
+
+
+
     <pluginRepositories>
+
         <pluginRepository>
             <id>mulesoft-releases</id>
-            <name>mulesoft release repository</name>
+            <name>MuleSoft Release Repository</name>
             <layout>default</layout>
             <url>https://repository.mulesoft.org/releases/</url>
+
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+
         </pluginRepository>
+
     </pluginRepositories>
+
+
+
     <dependencies>
+
         <dependency>
             <groupId>org.mule.connectors</groupId>
             <artifactId>mule-http-connector</artifactId>
             <version>1.11.3</version>
             <classifier>mule-plugin</classifier>
         </dependency>
+
     </dependencies>
-    <profiles>
-    <profile>
-        <id>cloudhub2</id>
 
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.mule.tools.maven</groupId>
-                    <artifactId>mule-maven-plugin</artifactId>
-                    <version>${mule.maven.plugin.version}</version>
-                    <extensions>true</extensions>
 
-                    <configuration>
-                        <cloudHub2Deployment>
-                            <uri>https://anypoint.mulesoft.com</uri>
-                            <provider>MC</provider>
-                            <environment>Sandbox</environment>
-
-                            <applicationName>jenkins-cicd-demo</applicationName>
-
-                            <target>
-                                <provider>MC</provider>
-                                <name>Shared Space Asia Pacific (Mumbai)</name>
-                            </target>
-
-                            <replicas>1</replicas>
-                            <vCores>0.1</vCores>
-
-                        </cloudHub2Deployment>
-                    </configuration>
-
-                </plugin>
-            </plugins>
-        </build>
-    </profile>
-</profiles>
 </project>
