@@ -28,25 +28,23 @@ pipeline {
         }
 
         stage('Deploy to CloudHub 2.0') {
-            steps {
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'anypoint-developer-edition-creds',
+                usernameVariable: 'CLIENT_ID',
+                passwordVariable: 'CLIENT_SECRET'
+            )
+        ]) {
 
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'anypoint-developer-edition-creds',
-                        usernameVariable: 'CLIENT_ID',
-                        passwordVariable: 'CLIENT_SECRET'
-                    )
-                ]) {
+            bat '''
+            mvn clean deploy ^
+            -DclientId=%CLIENT_ID% ^
+            -DclientSecret=%CLIENT_SECRET%
+            '''
 
-                  bat '''
-mvn org.mule.tools.maven:mule-maven-plugin:deploy ^
--DclientId=%CLIENT_ID% ^
--DclientSecret=%CLIENT_SECRET%
-'''
-
-                }
-            }
         }
-
+    }
+}
     }
 }
