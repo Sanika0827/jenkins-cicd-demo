@@ -38,10 +38,11 @@ pipeline {
         ]) {
 
             bat '''
-            mvn org.mule.tools.maven:mule-maven-plugin:deploy ^
+mvn mule:deploy ^
+-Pcloudhub2 ^
 -DclientId=%CLIENT_ID% ^
 -DclientSecret=%CLIENT_SECRET%
-            '''
+'''
 
         }
     }
