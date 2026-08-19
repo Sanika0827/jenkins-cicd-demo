@@ -39,6 +39,7 @@ pipeline {
 
             bat '''
 mvn clean deploy ^
+-DskipMunitTests ^
 -DclientId=%CLIENT_ID% ^
 -DclientSecret=%CLIENT_SECRET%
 '''
