@@ -54,41 +54,43 @@
 
             <!-- Mule Maven Plugin -->
             <plugin>
-                <groupId>org.mule.tools.maven</groupId>
-                <artifactId>mule-maven-plugin</artifactId>
-                <version>${mule.maven.plugin.version}</version>
-                <extensions>true</extensions>
+    <groupId>org.mule.tools.maven</groupId>
+    <artifactId>mule-maven-plugin</artifactId>
+    <version>${mule.maven.plugin.version}</version>
+    <extensions>true</extensions>
 
-                <configuration>
+    <configuration>
+        <cloudHub2Deployment>
+            <uri>https://anypoint.mulesoft.com</uri>
+            <provider>MC</provider>
+            <environment>Sandbox</environment>
 
-                    <cloudHub2Deployment>
+            <applicationName>jenkins-cicd-demo</applicationName>
 
-                        <uri>https://anypoint.mulesoft.com</uri>
+            <target>
+                <provider>MC</provider>
+                <name>Shared Space Asia Pacific (Mumbai)</name>
+            </target>
 
-                        <provider>MC</provider>
+            <deploymentSettings>
+                <replicas>1</replicas>
+                <vCores>0.1</vCores>
+            </deploymentSettings>
 
-                        <environment>Sandbox</environment>
+        </cloudHub2Deployment>
+    </configuration>
 
-                        <applicationName>jenkins-cicd-demo</applicationName>
+    <executions>
+        <execution>
+            <id>deploy</id>
+            <phase>deploy</phase>
+            <goals>
+                <goal>deploy</goal>
+            </goals>
+        </execution>
+    </executions>
 
-
-                        <target>
-                            <provider>MC</provider>
-                            <name>Shared Space Asia Pacific (Mumbai)</name>
-                        </target>
-
-
-                        <deploymentSettings>
-                            <replicas>1</replicas>
-                            <vCores>0.1</vCores>
-                        </deploymentSettings>
-
-
-                    </cloudHub2Deployment>
-
-                </configuration>
-
-            </plugin>
+</plugin>
 
 
             <!-- Skip Maven Repository Deployment -->
