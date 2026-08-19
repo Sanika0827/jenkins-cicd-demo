@@ -29,6 +29,7 @@ pipeline {
 
         stage('Deploy to CloudHub 2.0') {
             steps {
+
                 withCredentials([
                     usernamePassword(
                         credentialsId: 'anypoint-developer-edition-creds',
@@ -38,10 +39,10 @@ pipeline {
                 ]) {
 
                     bat '''
-                  mvn clean deploy ^
--DskipExchangeDeploy=true ^
--DclientId=%CLIENT_ID% ^
--DclientSecret=%CLIENT_SECRET%
+                    mvn deploy ^
+                    -DskipExchangeDeploy=true ^
+                    -DclientId=%CLIENT_ID% ^
+                    -DclientSecret=%CLIENT_SECRET%
                     '''
 
                 }
